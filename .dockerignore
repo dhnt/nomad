@@ -1,0 +1,13 @@
+#
+.git
+.vscode
+.gitignore
+build
+dist
+Makefile
+README.md
+*.md
+#
+.dockerignore
+docker-compose.yml
+Dockerfile

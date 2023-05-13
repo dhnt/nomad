@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  nomad:
+    platform: linux/amd64
+    privileged: true
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - ALL
+      # - SYS_ADMIN
+      # - NET_ADMIN
+    build:
+      context: ./
+      dockerfile: $PWD/Dockerfile
+    image: dhnt/nomad
+    volumes:
+      - $PWD/dist/linux-0.1/nomad:/usr/local/bin/nomad
+    command: >
+      /usr/local/bin/nomad mount
+        /mnt http://host.docker.internal:58080/
+        --allow-other
+        --direct-mount
+        --direct-mount-strict
+        --cpu-profile /tmp/cpuprof
+        --mem-profile /tmp/memprof
+        --debug
+
+
